@@ -112,12 +112,15 @@ class Library {
         }
     }
 
-    public void loadUsersFromFile(String filename) {
+public void loadUsersFromFile(String filename) {
         try (Scanner scanner = new Scanner(new File(filename))) {
             while (scanner.hasNextLine()) {
                 String[] parts = scanner.nextLine().split(",");
-                User user = new User(parts[0], parts[1], parts[2]);
-                users.add(user);
+                if (parts.length >= 3) {
+                    User user = new User(parts[0], parts[1], parts[2]);
+                    users.add(user);
+                } else {
+                }
             }
         } catch (FileNotFoundException e) {
             System.out.println("Users file not found.");
