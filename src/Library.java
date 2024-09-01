@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 class Library {
@@ -116,13 +117,19 @@ class Library {
         try (Scanner scanner = new Scanner(new File(filename))) {
             while (scanner.hasNextLine()) {
                 String[] parts = scanner.nextLine().split(",");
-                User user = new User(parts[0], parts[1], parts[2]);
-                users.add(user);
+                if (parts.length >= 3) {
+                    User user = new User(parts[0], parts[1], parts[2]);
+                    users.add(user);
+                } else {
+                    // Handle the case where parts.length < 3, if necessary
+                    System.out.println("Invalid user data: " + Arrays.toString(parts));
+                }
             }
         } catch (FileNotFoundException e) {
             System.out.println("Users file not found.");
         }
     }
+
 
     public List<Book> getBooks() {
         return books;
